@@ -1,6 +1,5 @@
-/**
- * SinglyLinkedList
- */
+import java.util.Objects;
+
 public class SinglyLinkedList implements LinkedList{
 
     public Node head,tail;
@@ -9,12 +8,15 @@ public class SinglyLinkedList implements LinkedList{
     public SinglyLinkedList(){
         head=tail=null;
     }
+
     public boolean isEmpty(){
         return(size==0);
     }
+
     public int size(){
         return size;
     }
+
     public void addFirst(Object inputData){
         Node baru = new Node(inputData);
         if (isEmpty()){
@@ -114,6 +116,7 @@ public class SinglyLinkedList implements LinkedList{
             currentNode = currentNode.pointer;
         }
     }
+
     @Override
     public Object get(int index) {
         if (index < 0 || index >= size) {
@@ -127,13 +130,14 @@ public class SinglyLinkedList implements LinkedList{
 
         return pointer.data;
     }
+
     @Override
     public int indexOf(Object targetData) {
         Node pointer = head;
         int index = 0;
 
         while (pointer != null) {
-            if (pointer.data.equals(targetData)) {
+            if (Objects.equals(pointer.data, targetData)) {
                 return index;
             }
 
@@ -143,6 +147,7 @@ public class SinglyLinkedList implements LinkedList{
 
         return -1;
     }
+
     @Override
     public void printReverse() {
         printReverseRecursive(head);
@@ -159,32 +164,32 @@ public class SinglyLinkedList implements LinkedList{
 
     @Override
     public boolean remove(Object targetData) {
-        if (head == null) {
+        Node pointer = head;
+
+        if (pointer == null) {
             return false;
         }
 
-        if (head.data.equals(targetData)) {
+        if (Objects.equals(pointer.data, targetData)) {
             head = head.pointer;
             size--;
 
-            if (head == null){
+            if (head == null) {
                 tail = null;
             }
 
             return true;
         }
 
-        Node pointer = head;
-
         while (pointer.pointer != null) {
-            if (pointer.pointer.data.equals(targetData)) {
+            if (Objects.equals(pointer.pointer.data, targetData)) {
                 Node nodeDihapus = pointer.pointer;
                 pointer.pointer = nodeDihapus.pointer;
 
                 if (nodeDihapus == tail) {
                     tail = pointer;
                 }
-                
+
                 size--;
                 return true;
             }
